@@ -3,7 +3,7 @@
   <main>
    <add-todo></add-todo>
     <ul class="todos">
-     <todo-item v-for="(item,index) in todos" :key="index"></todo-item>       
+     <todo-item v-for="(item,index) in todos" :key="index" :todo="item"></todo-item>       
     </ul>
     <app-filter></app-filter>
   </main>
