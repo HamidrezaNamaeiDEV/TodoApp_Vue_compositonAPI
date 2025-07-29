@@ -3,9 +3,7 @@
   <main>
    <add-todo></add-todo>
     <ul class="todos">
-     <todo-item></todo-item>       
-     <todo-item></todo-item>       
-     <todo-item></todo-item>       
+     <todo-item v-for="(item,index) in todos" :key="index"></todo-item>       
     </ul>
     <app-filter></app-filter>
   </main>
@@ -26,6 +24,14 @@ export default {
     AddTodo,
     TodoItem,
     AppFilter,
+  },
+  data(){
+    return{
+      todos : [
+        {title : "learn Vue",isCompleted:false},
+        {title : "learn js",isCompleted:true},
+      ]
+    }
   }
 }
 </script>
