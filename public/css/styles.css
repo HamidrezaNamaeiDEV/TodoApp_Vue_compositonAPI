@@ -64,6 +64,9 @@ img {
   user-select: none;
 }
 
+button{
+  cursor: pointer;
+}
 /* BODY */
 
 body {

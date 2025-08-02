@@ -4,7 +4,10 @@
           <input type="checkbox" :checked="todo.isCompleted ? true : null" class="cb-input" @click="changeStatus"/>
           <span class="check"></span>
         </div>
-        <p class="item">{{todo.title}}</p>
+        <p class="item" >
+          <del v-if="todo.isCompleted">{{todo.title}}</del>
+          <span v-else>{{todo.title}}</span>
+        </p>
         <button class="clear" @click=deleteTodo>
           <img src="../../public/assets/images/icon-cross.svg" alt="Clear it" />
         </button>

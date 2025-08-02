@@ -3,9 +3,9 @@
   <main>
    <add-todo @AddnewTodo="AddToDo"></add-todo>
     <ul class="todos">
-     <todo-item v-for="(item,i) in todos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
+     <todo-item v-for="(item,i) in filteredTodos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
     </ul>
-    <app-filter @deleteAllCompleted = "deleteAllCompleted" :activeCount="ActiveTodoCount"></app-filter>
+    <app-filter @deleteAllCompleted = "deleteAllCompleted" :activeCount="ActiveTodoCount" @changeTab ="changeTabHandler" :activeTab="activeTab"></app-filter>
   </main>
     <app-footer></app-footer>
 </template>
@@ -29,6 +29,7 @@ export default {
     return{
       todos : [],
       draggging : -1,
+      activeTab:"all",
     }
   },
   methods:{
@@ -61,12 +62,21 @@ export default {
     drop(index){
       let newElement = this.todos.splice(this.draggging,1)[0]
       this.todos.splice(index,0,newElement)
+    },
+    changeTabHandler(tab){
+      this.activeTab = tab
     }
   },
   computed:{
     ActiveTodoCount(){
       return this.todos.filter(f => f.isCompleted === false).length
-    }
+    },
+    filteredTodos() {
+    if (this.activeTab === 'all') return this.todos;
+    if (this.activeTab === 'active') return this.todos.filter(todo => !todo.isCompleted);
+    if (this.activeTab === 'completed') return this.todos.filter(todo => todo.isCompleted);
+    return this.todos;
+  }
   }
 }
 </script>
