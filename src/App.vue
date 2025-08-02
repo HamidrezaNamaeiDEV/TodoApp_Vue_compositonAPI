@@ -37,11 +37,12 @@ export default {
       const id = Math.random().toString(16).slice(2)
       const todo = {id ,title , isCompleted : false}
       this.todos.push(todo)
+      this.$toast.success("تودو جدید اضافه شد")
     },
     deleteTodo(id){
-      this.todos = this.todos.filter((todo)=>{
-        return todo.id !== id
-      })
+      const todo = this.todos.find(todo=>todo.id == id)
+      this.todos = this.todos.filter(todo=>todo.id !== id)
+      this.$toast.error(`${todo.title} حذف شد`)
     },
     changeTodoStatus(id,newStatus){
       let newTodos = [...this.todos];
@@ -54,6 +55,7 @@ export default {
       let newTodos = [...this.todos];
       newTodos = newTodos.filter(f =>f.isCompleted === false);
       this.todos = newTodos
+       this.$toast.success("تکمیل شده ها با موفقیت حذف شده اند")
       }
     },
     dragstart(index){
