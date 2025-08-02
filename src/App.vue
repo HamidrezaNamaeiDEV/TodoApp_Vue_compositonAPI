@@ -3,9 +3,9 @@
   <main>
    <add-todo @AddnewTodo="AddToDo"></add-todo>
     <ul class="todos">
-     <todo-item v-for="item in todos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus"></todo-item>       
+     <todo-item v-for="(item,i) in todos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
     </ul>
-    <app-filter @deleteAllCompleted = "deleteAllCompleted"></app-filter>
+    <app-filter @deleteAllCompleted = "deleteAllCompleted" :activeCount="ActiveTodoCount"></app-filter>
   </main>
     <app-footer></app-footer>
 </template>
@@ -27,7 +27,8 @@ export default {
   },
   data(){
     return{
-      todos : []
+      todos : [],
+      draggging : -1,
     }
   },
   methods:{
@@ -53,6 +54,18 @@ export default {
       newTodos = newTodos.filter(f =>f.isCompleted === false);
       this.todos = newTodos
       }
+    },
+    dragstart(index){
+      this.draggging = index
+    },
+    drop(index){
+      let newElement = this.todos.splice(this.draggging,1)[0]
+      this.todos.splice(index,0,newElement)
+    }
+  },
+  computed:{
+    ActiveTodoCount(){
+      return this.todos.filter(f => f.isCompleted === false).length
     }
   }
 }

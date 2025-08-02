@@ -1,6 +1,6 @@
 <template>
         <div class="card stat">
-      <p class="corner"><span id="items-left">0</span> مورد باقی مانده</p>
+      <p class="corner"><span id="items-left">{{activeCount}}</span> مورد باقی مانده</p>
       <div class="filter">
         <button id="all" class="on">همه</button>
         <button id="active" >فعال</button>
@@ -13,6 +13,12 @@
 </template>
 <script>
 export default{
+  props:{
+    activeCount:{
+      type : Number,
+      required: true
+    }
+  },
   methods:{
     deleteAllCompleted(){
       this.$emit("deleteAllCompleted")
