@@ -1,11 +1,11 @@
 <template>
   <app-header></app-header>
   <main>
-   <add-todo></add-todo>
+   <add-todo @AddnewTodo="AddToDo"></add-todo>
     <ul class="todos">
-     <todo-item v-for="(item,index) in todos" :key="index" :todo="item"></todo-item>       
+     <todo-item v-for="item in todos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus"></todo-item>       
     </ul>
-    <app-filter></app-filter>
+    <app-filter @deleteAllCompleted = "deleteAllCompleted"></app-filter>
   </main>
     <app-footer></app-footer>
 </template>
@@ -27,10 +27,32 @@ export default {
   },
   data(){
     return{
-      todos : [
-        {title : "learn Vue",isCompleted:false},
-        {title : "learn js",isCompleted:true},
-      ]
+      todos : []
+    }
+  },
+  methods:{
+    AddToDo(title){
+      const id = Math.random().toString(16).slice(2)
+      const todo = {id ,title , isCompleted : false}
+      this.todos.push(todo)
+    },
+    deleteTodo(id){
+      this.todos = this.todos.filter((todo)=>{
+        return todo.id !== id
+      })
+    },
+    changeTodoStatus(id,newStatus){
+      let newTodos = [...this.todos];
+      let selectedTodo = newTodos.find(item=>item.id === id)
+      selectedTodo.isCompleted = newStatus
+      this.todos = newTodos;
+    },
+    deleteAllCompleted(){
+      if(confirm("ایا ا پاک کردن تمامی تکمیل شده ها مطمئن هستید؟")){
+      let newTodos = [...this.todos];
+      newTodos = newTodos.filter(f =>f.isCompleted === false);
+      this.todos = newTodos
+      }
     }
   }
 }

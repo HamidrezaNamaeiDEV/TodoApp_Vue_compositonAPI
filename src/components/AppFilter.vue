@@ -7,12 +7,16 @@
         <button id="completed">تکمیل</button>
       </div>
       <div class="corner">
-        <button id="clear-completed">حذف تکمیل شده ها</button>
+        <button @click="deleteAllCompleted" id="clear-completed">حذف تکمیل شده ها</button>
       </div>
     </div>
 </template>
 <script>
 export default{
-    
+  methods:{
+    deleteAllCompleted(){
+      this.$emit("deleteAllCompleted")
+    }
+  }
 }
 </script>
