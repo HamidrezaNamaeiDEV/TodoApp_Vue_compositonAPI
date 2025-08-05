@@ -14,20 +14,18 @@
       </li>
 
 </template>
-<script>
-export default {
-  props:{
-    todo:Object
-  },
-  methods:{
-    deleteTodo(){
+<script setup>
+import {defineProps , defineEmits} from "vue"
+  const props = defineProps({
+    todo : Object
+  })
+  const emits = defineEmits(['Deleted','changeStatus'])
+  function deleteTodo(){
       if (confirm("ایا از حذف مطمئن اید؟")) {
-        this.$emit("Deleted",this.todo.id)
+        emits("Deleted",props.todo.id)
       }
-    },
-    changeStatus(){
-      this.$emit("changeStatus",this.todo.id,!this.todo.isCompleted)
     }
+  function changeStatus(){
+      emits("changeStatus",props.todo.id,!props.todo.isCompleted)
   }
-}
 </script>

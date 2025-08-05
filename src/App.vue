@@ -34,10 +34,16 @@ export default {
   },
   methods:{
     AddToDo(title){
+      if(!title){
+      this.$toast.error("لطفا متن تودو را پر کنید")
+      }
+      else{
       const id = Math.random().toString(16).slice(2)
       const todo = {id ,title , isCompleted : false}
       this.todos.push(todo)
       this.$toast.success("تودو جدید اضافه شد")
+      }
+
     },
     deleteTodo(id){
       const todo = this.todos.find(todo=>todo.id == id)
