@@ -19,10 +19,10 @@ import {defineProps , defineEmits} from "vue"
   const props = defineProps({
     todo : Object
   })
-  const emits = defineEmits(['ondeleted','changeStatus'])
+  const emits = defineEmits(['Deleted','changeStatus'])
   function deleteTodo(){
       if (confirm("ایا از حذف مطمئن اید؟")) {
-        emits("ondeleted",props.todo.id)
+        emits("Deleted",props.todo.id)
       }
     }
   function changeStatus(){

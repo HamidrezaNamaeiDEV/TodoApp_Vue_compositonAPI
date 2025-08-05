@@ -3,7 +3,7 @@
   <main>
    <add-todo @AddnewTodo="AddToDoItem"></add-todo>
     <ul class="todos">
-     <todo-item v-for="(item,i) in filteredTodos" :key="item.id" :todo="item" @ondgiteleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
+     <todo-item v-for="(item,i) in filteredTodos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
     </ul>
     <app-filter @deleteAllCompleted = "deleteAllCompleted" :activeCount="ActiveTodoCount" @changeTab ="changeTabHandler" :activeTab="activeTab"></app-filter>
   </main>
@@ -20,8 +20,7 @@ import {ref, computed} from 'vue';
 import {useToast} from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-default.css';
     
-
-    const $toast = useToast();
+    const $toast = useToast({ position: 'top-left' })
     console.log($toast)
     let todos = ref([])
     const draggging = ref(-1)
