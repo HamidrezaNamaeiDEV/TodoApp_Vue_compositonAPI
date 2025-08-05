@@ -3,7 +3,7 @@
   <main>
    <add-todo @AddnewTodo="AddToDoItem"></add-todo>
     <ul class="todos">
-     <todo-item v-for="(item,i) in filteredTodos" :key="item.id" :todo="item" @Deleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
+     <todo-item v-for="(item,i) in filteredTodos" :key="item.id" :todo="item" @onDeleted="deleteTodo" @changeStatus="changeTodoStatus" @dragover.prevent @dragstart="dragstart(i)" @drop="drop(i)"></todo-item>       
     </ul>
     <app-filter @deleteAllCompleted = "deleteAllCompleted" :activeCount="ActiveTodoCount" @changeTab ="changeTabHandler" :activeTab="activeTab"></app-filter>
   </main>
